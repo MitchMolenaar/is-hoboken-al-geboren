@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Is Hoboken al geboren?</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -19,87 +19,104 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Outfit', sans-serif;
-    background: radial-gradient(circle at top left, #1e3c72, #0f2027 60%);
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(135deg, #ffd6e0, #d6f0ff, #fff5c3);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
     overflow: hidden;
-    color: white;
 }
 
-/* Animated background glow */
-body::before {
-    content: "";
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,0,100,0.4), transparent 70%);
-    top: -200px;
-    right: -200px;
-    animation: float 6s ease-in-out infinite alternate;
-}
-
-@keyframes float {
-    from { transform: translateY(0px); }
-    to { transform: translateY(40px); }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
     text-align: center;
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.08);
-    padding: 80px;
-    border-radius: 30px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-    animation: fadeIn 1.5s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    background: rgba(255,255,255,0.8);
+    padding: 60px 80px;
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
 }
 
 h1 {
-    font-size: 4rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
+    font-size: 3.5rem;
+    color: #ff8fab;
+    margin-bottom: 20px;
 }
 
 .answer {
     font-size: 6rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #ff416c, #ff4b2b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: pulse 2s infinite;
+    font-weight: 700;
+    color: #4dabf7;
+    animation: bounce 1.5s infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
-/* Subtle floating particles */
-.particle {
+/* Balloons */
+.balloon {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
+    bottom: -150px;
+    width: 60px;
+    height: 80px;
     border-radius: 50%;
-    opacity: 0.3;
-    animation: rise 10s linear infinite;
+    animation: floatUp 12s linear infinite;
 }
 
-@keyframes rise {
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background: #999;
+    top: 80px;
+    left: 50%;
+}
+
+@keyframes floatUp {
     from {
-        transform: translateY(100vh);
-        opacity: 0;
+        transform: translateY(0);
     }
-    20% { opacity: 0.5; }
     to {
-        transform: translateY(-10vh);
-        opacity: 0;
+        transform: translateY(-120vh);
     }
+}
+
+/* Clouds */
+.cloud {
+    position: absolute;
+    background: white;
+    width: 120px;
+    height: 60px;
+    border-radius: 50px;
+    opacity: 0.8;
+    animation: drift 30s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    top: -40px;
+}
+
+.cloud::before { left: 10px; }
+.cloud::after { right: 10px; }
+
+@keyframes drift {
+    from { transform: translateX(-200px); }
+    to { transform: translateX(120vw); }
 }
 </style>
 </head>
@@ -107,19 +124,31 @@ h1 {
 <body>
 
 <div class="container">
-    <h1>Is Hoboken al geboren?</h1>
-    <div class="answer">Nee</div>
+    <h1>👶 Is Hoboken al geboren?</h1>
+    <div class="answer">Nee 💕</div>
 </div>
 
 <script>
-// Create floating particles
-for (let i = 0; i < 25; i++) {
-    const particle = document.createElement("div");
-    particle.classList.add("particle");
-    particle.style.left = Math.random() * 100 + "vw";
-    particle.style.animationDuration = (5 + Math.random() * 10) + "s";
-    particle.style.animationDelay = Math.random() * 5 + "s";
-    document.body.appendChild(particle);
+// Balloons
+const colors = ["#ff8fab", "#ffd166", "#a0c4ff", "#caffbf", "#bdb2ff"];
+
+for (let i = 0; i < 10; i++) {
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+    balloon.style.animationDuration = (8 + Math.random() * 6) + "s";
+    balloon.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(balloon);
+}
+
+// Clouds
+for (let i = 0; i < 3; i++) {
+    const cloud = document.createElement("div");
+    cloud.classList.add("cloud");
+    cloud.style.top = (10 + i * 20) + "vh";
+    cloud.style.animationDuration = (40 + i * 10) + "s";
+    document.body.appendChild(cloud);
 }
 </script>
 
