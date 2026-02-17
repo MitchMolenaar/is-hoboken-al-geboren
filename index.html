@@ -133,13 +133,21 @@ h1 {
 <div class="container">
     <h1>👶 Is Hoboken al geboren?</h1>
     <div class="answer">Nee 💕</div>
-    <div class="dilation">Ontsluiting: 3 cm 💪</div>
+    <div class="dilation" id="dilationDisplay"></div>
 </div>
 
 <script>
-// Balloons
-const colors = ["#ff8fab", "#ffd166", "#a0c4ff", "#caffbf", "#bdb2ff"];
+// ===== Dynamische ontsluiting variabele =====
+const ontsluitingCm = 3; // hier vul je het aantal cm in
+const maxCm = 10;         // volledige ontsluiting = 10 cm
+const schaal = Math.round((ontsluitingCm / maxCm) * 10); // schaal 1-10 afgerond
 
+// Toon op pagina
+const dilationDiv = document.getElementById("dilationDisplay");
+dilationDiv.innerHTML = `Ontsluiting: ${ontsluitingCm} cm 💪<br>Schaal: ${schaal}/10 📊`;
+
+// ===== Balloons =====
+const colors = ["#ff8fab", "#ffd166", "#a0c4ff", "#caffbf", "#bdb2ff"];
 for (let i = 0; i < 10; i++) {
     const balloon = document.createElement("div");
     balloon.classList.add("balloon");
@@ -150,7 +158,7 @@ for (let i = 0; i < 10; i++) {
     document.body.appendChild(balloon);
 }
 
-// Clouds
+// ===== Clouds =====
 for (let i = 0; i < 3; i++) {
     const cloud = document.createElement("div");
     cloud.classList.add("cloud");
